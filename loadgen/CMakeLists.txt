@@ -46,11 +46,21 @@ set(SOURCE
   ${CMAKE_BINARY_DIR}/version_generated.cc
 )
 
-add_library(mlperf_loadgen STATIC ${SOURCE})
+# Based on this alternative build definition:
+# https://github.com/mlperf/inference/blob/master/loadgen/BUILD.gn
+set(PUBLIC_HEADERS
+  ${CMAKE_CURRENT_SOURCE_DIR}/loadgen.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/query_sample.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/query_sample_library.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/system_under_test.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/test_settings.h
+)
+
+add_library(mlperf_loadgen SHARED ${SOURCE})
 target_link_libraries(mlperf_loadgen)
 
 # Install library and headers.
 install(TARGETS mlperf_loadgen
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/include FILES_MATCHING PATTERN "*.h")
+	LIBRARY DESTINATION lib)
+install(FILES ${PUBLIC_HEADERS}
+	DESTINATION include/loadgen)
