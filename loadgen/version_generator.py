@@ -97,8 +97,8 @@ def generate_loadgen_version_definitions(cc_filename, loadgen_root):
 
     date_time_now_local = datetime.datetime.now().isoformat()
     date_time_now_utc = datetime.datetime.utcnow().isoformat()
-    ofile.write(func_def("BuildDateLocal", "\"" + date_time_now_local + "\""))
-    ofile.write(func_def("BuildDateUtc", "\"" + date_time_now_utc + "\""))
+    ofile.write(func_def("BuildDateLocal", "\"NA\""))
+    ofile.write(func_def("BuildDateUtc", "\"NA\""))
 
     git_dir = "--git-dir=\"" + loadgen_root + "/../.git\" "
     git_work_tree = "--work-tree=\"" + loadgen_root + "/..\" "
